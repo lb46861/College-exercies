@@ -27,7 +27,7 @@ public class ActivityEditNote extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.newLayout);
+        setContentView(R.layout.activity_new_note);
 
         db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "my-notes").build();
         heading = findViewById(R.id.textViewHeading);

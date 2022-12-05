@@ -1,11 +1,11 @@
 import React from "react";
-import Movie from "./Movie";
+import Club from "./Club";
 
 const Result = ({ data }) => {
   return (
     <div>
-      {data.map((item) => (
-        <Movie name={item} />
+      {data.map((item, index) => (
+        <Club item={item}  key = {index}/>
       ))}
     </div>
   );

@@ -1,106 +1,99 @@
 import React, { useState, useEffect } from "react";
 import Result from "./Result";
-//const moviesGenres = ["drama", "SF", "Familie", "Horror"];
+import Select from "./Select";
 
 const SearchParams = () => {
 
-  const [sport, setSport] = useState("football");
+  const [sport, setSport] = useState('');
   const [sports, setSports] = useState([]);
 
-  const [leagueDrop, setLeagueDrop] = useState([])
+  const [leagueDrop, setLeagueDrop] = useState('')
   const [leagueDrops, setLeagueDrops] = useState([])
+
+  const [clubs, setClubs] = useState([])
 
 
   async function getSports() {
     const allSports = await fetch("https://demo4954048.mockable.io/sport");
-
     const json = await allSports.json();
-
     const result = await json.sports;
-
     setSports(result);
+    setSport(result[0])
   }
 
-  async function getLeagues() {
-    const sportLeagues = await fetch(`https://demo4954048.mockable.io/sport/${sport}`);
-    const json = await sportLeagues.json();
-    const result = await json.leagues;
-    setLeagueDrops(result);
+  async function getClubs(){
+    myLeague = leagueDrop.replace(/\s+/g, '').toLowerCase();
+    const allClubs = await fetch(`https://demo4954048.mockable.io/sport/${sport}/${myLeague}`);
+    const json = await allClubs.json();
+    const result = await json.clubs;
+    setClubs(result);
   }
 
-
-
+  // async function getLeagues() {
+  //   const sportLeagues = await fetch(`https://demo4954048.mockable.io/sport/${sport}`);
+  //   const json = await sportLeagues.json();
+  //   const result = await json.leagues;
+  //   setLeagueDrops(result);
+  // }
 
   async function getLeaguesFromSport() {
     const response = await fetch(
       `https://demo4954048.mockable.io/sport/${sport}`
-    ).then((value) => value.json().then(({ leagues }) => setLeagueDrops(leagues)));
+    ).then((value) => value.json().then(({ leagues }) => {
+      setLeagueDrops(leagues)
+      setLeagueDrop(leagues[0])
+      document.getElementById("leagueSelect").selectedIndex = 0;
+    })
+    );
   }
 
   useEffect(() => {
     getSports();
-    // getLeagues();
   }, []);
 
-
   useEffect(() => {
-    getLeaguesFromSport();
-    // getLeagues();
+    if(sport) {
+      getLeaguesFromSport();
+    }
   }, [sport]);
 
 
-  /* useEffect(() => {
-    getLeaguesFromSport();
-  }, [genre]); */
-
+  // useEffect(() => {
+  //   if(leagueDrop) getClubsFromLeague()
+  // }, [leagueDrop]);
 
   return (
-    // <form>
-    <>
-    
+    <form>
+
 {/* Parent dropDown */}
       <label>
-        Choose Sport:
+      Select Sport:
         <br />
-        <select value={sport} onChange={(e) => {
-          setSport(e.target.value);
-          // leagueDrop = leagueDrops[0];
-          // setLeagueDrop(leagueDrop);
-        }
-        }>
-          {sports.map((item) => (
-            <option value={item}>{item}</option>
-          ))}
-        </select>
+        {sports.length ? <Select selectId='sportSelect' list={sports} setter={setSport}/> : ''}   
       </label>
 
 {/* Child dropDown */}
       <label>
-       <br />
-        Choose League:
+        Select League:
         <br />
-        <select value={leagueDrop} onChange={(e) => setLeagueDrop(e.target.value)}>
-          {leagueDrops.map((item) => (
-            <option value={item}>{item}</option>
-          ))}
-        </select>
+        {leagueDrops.length ? <Select selectId='leagueSelect' list={leagueDrops} setter={setLeagueDrop}/> : ''}   
       </label>
+
       < br />
-      {/* <button
+
+
+      <button
         onClick={(e) => {
           e.preventDefault();
-          getLeaguesFromSport();
+          getClubs();
         }}
       >
         Generate
-      </button> */}
+      </button>
 
-      {/* {movies.map((item) => (
-        <Movie name={item.name} />
-      ))} */}
-      <Result data={leagueDrops} />
-      </>
-    // </form>
+      <Result data={clubs} />
+      
+    </form>
   );
 };
 

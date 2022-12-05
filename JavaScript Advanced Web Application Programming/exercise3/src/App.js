@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import Movie from "./Movie";
+import Club from "./Club";
 import SearchParams from "./SearchParams";
 
 /* const App = () => {

@@ -8,12 +8,12 @@ import React from "react";
   ]);
 } */
 
-const Movie = (props) => {
+const Club = (props) => {
   return (
     <div>
-      <h1> {props.name}</h1>
+      <h1> {props.item.name}</h1>
     </div>
   );
 };
 
-export default Movie;
+export default Club;

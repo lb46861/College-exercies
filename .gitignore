@@ -127,3 +127,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+#react
+node_modules/
+.DS_Store
+.cache/
+dist/
+coverage/
+.vscode/
+.env
+
+.DS_Store

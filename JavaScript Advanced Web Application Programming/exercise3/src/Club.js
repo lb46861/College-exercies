@@ -1,19 +1,15 @@
-import React from "react";
-
-/* export default function Movie({ title, genre, duration }) {
-  return React.createElement("div", {}, [
-    React.createElement("h1", {}, title),
-    React.createElement("h2", {}, genre),
-    React.createElement("h2", {}, duration),
-  ]);
-} */
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Club = (props) => {
   return (
-    <div>
-      <h1> {props.item.name}</h1>
+    <div style={{ marginBlock: 10 + 'px' }}>
+      {props.item.name} &nbsp;
+      <Link to={`${props.sport}/${props.league}/${props.item.id}`}>
+        <button>Details </button>
+      </Link>
     </div>
-  );
-};
+  )
+}
 
-export default Club;
+export default Club

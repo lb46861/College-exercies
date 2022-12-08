@@ -1,14 +1,14 @@
-import React from "react";
-import Club from "./Club";
+import React from 'react'
+import Club from './Club'
 
-const Result = ({ data }) => {
+const Result = (props) => {
   return (
     <div>
-      {data.map((item, index) => (
-        <Club item={item}  key = {index}/>
+      {props.data.map((item, index) => (
+        <Club item={item} sport={props.sport} league={props.league} key = {index} />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default Result;
+export default Result

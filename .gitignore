@@ -139,3 +139,5 @@ coverage/
 .env
 
 .DS_Store
+
+google-services.json
